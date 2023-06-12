@@ -1,0 +1,5 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+UNDEPLOY IF EXISTS WEBSERVICE timestamp_value;
+
+DEPLOY WEBSERVICE timestamp_value LOGIN = '${databases.mock.webcontainer.webservices.timestamp_value.LOGIN}' PASSWORD = '${databases.mock.webcontainer.webservices.timestamp_value.PASSWORD}' ${databases.mock.webcontainer.webservices.timestamp_value.PASSWORD.ENCRYPTED};
+

@@ -1,0 +1,9 @@
+﻿CREATE OR REPLACE VIEW arabic_u_arabic_test FOLDER = '/cache' AS SELECT arabic, name_nchar, id, demo, s FROM (SELECT * FROM test.arabic EXTENDED UNION ALL SELECT demo, s, id, name_nchar FROM test.arabic_test) CONTEXT ('I18N' = 'india');
+
+ALTER VIEW arabic_u_arabic_test
+ LAYOUT (arabic = [397, 195, 200, 45], arabic_test = [175, 216, 200, 165]);
+
+ALTER VIEW arabic_u_arabic_test
+ CACHE PARTIAL
+     BATCHSIZEINCACHE DEFAULT TIMETOLIVEINCACHE DEFAULT;
+

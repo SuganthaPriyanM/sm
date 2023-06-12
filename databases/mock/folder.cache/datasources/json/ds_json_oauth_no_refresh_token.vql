@@ -1,0 +1,15 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE DATASOURCE JSON ds_json_oauth_no_refresh_token
+    FOLDER = '/cache'
+    ROUTE HTTP 'http.CommonsHttpClientConnection,120000' GET '${databases.mock.folder.cache.datasources.json.ds_json_oauth_no_refresh_token.ROUTE.HTTP.URL}'
+    AUTHENTICATION OAUTH20 ( 
+      ACCESSTOKEN = '${databases.mock.folder.cache.datasources.json.ds_json_oauth_no_refresh_token.ROUTE.HTTP.ACCESSTOKEN}' ${databases.mock.folder.cache.datasources.json.ds_json_oauth_no_refresh_token.ROUTE.HTTP.ACCESSTOKEN.ENCRYPTED}
+      REQUESTSIGNINGMETHOD = ${databases.mock.folder.cache.datasources.json.ds_json_oauth_no_refresh_token.ROUTE.HTTP.REQUESTSIGNINGMETHOD}
+      AUTHENTICATION_GRANT = ${databases.mock.folder.cache.datasources.json.ds_json_oauth_no_refresh_token.ROUTE.AUTHENTICATION.GRANT}
+      TOKENENDPOINTURL = '${databases.mock.folder.cache.datasources.json.ds_json_oauth_no_refresh_token.ROUTE.HTTP.TOKENENDPOINTURL}'
+      CLIENTIDENTIFIER = '${databases.mock.folder.cache.datasources.json.ds_json_oauth_no_refresh_token.ROUTE.HTTP.CLIENTIDENTIFIER}'
+      CLIENTSECRET = '${databases.mock.folder.cache.datasources.json.ds_json_oauth_no_refresh_token.ROUTE.HTTP.CLIENTSECRET}' ${databases.mock.folder.cache.datasources.json.ds_json_oauth_no_refresh_token.ROUTE.HTTP.CLIENTSECRET.ENCRYPTED}
+      REFRESHTOKEN = '${databases.mock.folder.cache.datasources.json.ds_json_oauth_no_refresh_token.ROUTE.HTTP.REFRESHTOKEN}' ${databases.mock.folder.cache.datasources.json.ds_json_oauth_no_refresh_token.ROUTE.HTTP.REFRESHTOKEN.ENCRYPTED}
+    )
+    PROXY OFF;
+

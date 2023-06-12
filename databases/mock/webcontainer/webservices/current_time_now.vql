@@ -1,0 +1,5 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+UNDEPLOY IF EXISTS WEBSERVICE current_time_now;
+
+DEPLOY WEBSERVICE current_time_now LOGIN = '${databases.mock.webcontainer.webservices.current_time_now.LOGIN}' PASSWORD = '${databases.mock.webcontainer.webservices.current_time_now.PASSWORD}' ${databases.mock.webcontainer.webservices.current_time_now.PASSWORD.ENCRYPTED};
+

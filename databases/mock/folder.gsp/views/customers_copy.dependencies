@@ -1,0 +1,8 @@
+﻿/databases/mock/folder.gsp/gsp.vql
+/maps/i18n/india.vql
+/tags/deny_exec_tag.vql
+/tags/email.vql
+/tags/sensitive_fields.vql
+/tags/phone.vql
+/tags/location.vql
+/tags/state_tag.vql

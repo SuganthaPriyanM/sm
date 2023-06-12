@@ -1,0 +1,38 @@
+﻿CREATE OR REPLACE WRAPPER DF bv_citibike_files
+    FOLDER = '/zeppelin/baseviews'
+    DATASOURCENAME=ds_citibike_files
+    OUTPUTSCHEMA (
+        "Date" = 'Date' (OPT),
+        "Trips over the past 24-hours (midnight to 11:59pm)" = 'Trips over the past 24-hours (midnight to 11:59pm)' (OPT),
+        "Miles traveled today (midnight to 11:59 pm)" = 'Miles traveled today (midnight to 11:59 pm)' (OPT),
+        "Total Annual Members (All Time)" = 'Total Annual Members (All Time)' (OPT),
+        "24-Hour Passes Purchased (midnight to 11:59 pm)" = '24-Hour Passes Purchased (midnight to 11:59 pm)' (OPT),
+        "3-Day Passes Purchased (midnight to 11:59 pm)" = '3-Day Passes Purchased (midnight to 11:59 pm)' (OPT)
+    );
+
+CREATE OR REPLACE TABLE bv_citibike_files I18N us_pst (
+        "Date":text,
+        "Trips over the past 24-hours (midnight to 11:59pm)":text,
+        "Miles traveled today (midnight to 11:59 pm)":text,
+        "Total Annual Members (All Time)":text,
+        "24-Hour Passes Purchased (midnight to 11:59 pm)":text,
+        "3-Day Passes Purchased (midnight to 11:59 pm)":text
+    )
+    FOLDER = '/zeppelin/baseviews'
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_citibike_files(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD "Date" (any) OPT ANY
+             ADD "Trips over the past 24-hours (midnight to 11:59pm)" (any) OPT ANY
+             ADD "Miles traveled today (midnight to 11:59 pm)" (any) OPT ANY
+             ADD "Total Annual Members (All Time)" (any) OPT ANY
+             ADD "24-Hour Passes Purchased (midnight to 11:59 pm)" (any) OPT ANY
+             ADD "3-Day Passes Purchased (midnight to 11:59 pm)" (any) OPT ANY
+        )
+        OUTPUTLIST ("24-Hour Passes Purchased (midnight to 11:59 pm)", "3-Day Passes Purchased (midnight to 11:59 pm)", "Date", "Miles traveled today (midnight to 11:59 pm)", "Total Annual Members (All Time)", "Trips over the past 24-hours (midnight to 11:59pm)"
+        )
+        WRAPPER (df bv_citibike_files)
+    );
+

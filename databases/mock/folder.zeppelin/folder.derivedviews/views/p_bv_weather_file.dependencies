@@ -1,0 +1,6 @@
+﻿/databases/mock/folder.zeppelin/zeppelin.vql
+/databases/mock/folder.zeppelin/folder.derivedviews/derivedviews.vql
+/databases/mock/folder.zeppelin/folder.baseviews/baseviews.vql
+/databases/mock/folder.zeppelin/folder.datasources/datasources.vql
+/databases/mock/folder.zeppelin/folder.datasources/datasources/custom/ds_weather_file.vql
+/databases/mock/folder.zeppelin/folder.baseviews/views/bv_weather_file.vql

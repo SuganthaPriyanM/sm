@@ -1,0 +1,4 @@
+﻿/databases/mock/folder.zeppelin/zeppelin.vql
+/databases/mock/folder.zeppelin/folder.baseviews/baseviews.vql
+/databases/mock/folder.zeppelin/folder.datasources/datasources.vql
+/databases/mock/folder.zeppelin/folder.datasources/datasources/df/ds_citibike_files.vql

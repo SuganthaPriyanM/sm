@@ -1,0 +1,2 @@
+﻿CREATE OR REPLACE VIEW current_time_now AS SELECT now() FROM dual();
+

@@ -1,0 +1,30 @@
+﻿CREATE OR REPLACE TABLE bv_weather_file I18N us_pst (
+        "Year":int (sourcetypeid = '4'),
+        "Month":int (sourcetypeid = '4'),
+        "Day":int (sourcetypeid = '4'),
+        "Max Temp (F)":int (sourcetypeid = '4'),
+        "Min Temp (F)":int (sourcetypeid = '4'),
+        "Rain (in.)":text (sourcetypeid = '12'),
+        "Snow (in.)":text (sourcetypeid = '12'),
+        "Snow Cover (in.)":text (sourcetypeid = '12')
+    )
+    FOLDER = '/zeppelin/baseviews'
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD ds_weather_file(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD "Year" (any) OPT ANY
+             ADD "Month" (any) OPT ANY
+             ADD "Day" (any) OPT ANY
+             ADD "Max Temp (F)" (any) OPT ANY
+             ADD "Min Temp (F)" (any) OPT ANY
+             ADD "Rain (in.)" (any) OPT ANY
+             ADD "Snow (in.)" (any) OPT ANY
+             ADD "Snow Cover (in.)" (any) OPT ANY
+        )
+        OUTPUTLIST ("Day", "Max Temp (F)", "Min Temp (F)", "Month", "Rain (in.)", "Snow (in.)", "Snow Cover (in.)", "Year"
+        )
+        WRAPPER (custom ds_weather_file)
+    );
+

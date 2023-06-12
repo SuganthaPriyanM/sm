@@ -1,0 +1,79 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JSON ds_create_rev_from_vql
+    DATASOURCENAME=ds_create_rev_from_vql
+    TUPLEROOT '/JSONFile'
+    ROUTE HTTP 'http.CommonsHttpClientConnection,120000' POST '${databases.mock.views.json.ds_create_rev_from_vql.ROUTE.HTTP.URL}'
+    OUTPUTSCHEMA (jsonfile = 'JSONFile' : REGISTER OF (
+        id = 'id' : 'java.lang.Integer',
+        name = 'name' : 'java.lang.String',
+        type = 'type' : 'java.lang.String',
+        replace = 'replace' : 'java.lang.String',
+        creationuser = 'creationUser' : 'java.lang.String',
+        creationtime = 'creationTime' : 'java.lang.String',
+        lastmodifieduser = 'lastModifiedUser' : 'java.lang.String',
+        lastmodifiedtime = 'lastModifiedTime' : 'java.lang.String',
+        hasvql = 'hasVql' : 'java.lang.String',
+        hasscheduler = 'hasScheduler' : 'java.lang.String',
+        includejars = 'includeJars' : 'java.lang.String',
+        includei18n = 'includeI18N' : 'java.lang.String',
+        includestatistics = 'includeStatistics' : 'java.lang.String',
+        includeserverproperties = 'includeServerProperties' : 'java.lang.String',
+        includewebcontainerproperties = 'includeWebContainerProperties' : 'java.lang.String',
+        includejdbcwrapperproperties = 'includeJdbcWrapperProperties' : 'java.lang.String',
+        includevdpdependencies = 'includeVdpDependencies' : 'java.lang.String',
+        includeusersandprivileges = 'includeUsersAndPrivileges' : 'java.lang.String',
+        usedefaultdatabase = 'useDefaultDatabase' : 'java.lang.String'
+    )
+    );
+
+CREATE OR REPLACE TABLE ds_create_rev_from_vql I18N us_pst (
+        id:int,
+        name:text,
+        type:text,
+        replace:text,
+        creationuser:text,
+        creationtime:text,
+        lastmodifieduser:text,
+        lastmodifiedtime:text,
+        hasvql:text,
+        hasscheduler:text,
+        includejars:text,
+        includei18n:text,
+        includestatistics:text,
+        includeserverproperties:text,
+        includewebcontainerproperties:text,
+        includejdbcwrapperproperties:text,
+        includevdpdependencies:text,
+        includeusersandprivileges:text,
+        usedefaultdatabase:text
+    )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD ds_create_rev_from_vql(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD id NOS ZERO ()
+             ADD name NOS ZERO ()
+             ADD type NOS ZERO ()
+             ADD replace NOS ZERO ()
+             ADD creationuser NOS ZERO ()
+             ADD creationtime NOS ZERO ()
+             ADD lastmodifieduser NOS ZERO ()
+             ADD lastmodifiedtime NOS ZERO ()
+             ADD hasvql NOS ZERO ()
+             ADD hasscheduler NOS ZERO ()
+             ADD includejars NOS ZERO ()
+             ADD includei18n NOS ZERO ()
+             ADD includestatistics NOS ZERO ()
+             ADD includeserverproperties NOS ZERO ()
+             ADD includewebcontainerproperties NOS ZERO ()
+             ADD includejdbcwrapperproperties NOS ZERO ()
+             ADD includevdpdependencies NOS ZERO ()
+             ADD includeusersandprivileges NOS ZERO ()
+             ADD usedefaultdatabase NOS ZERO ()
+        )
+        OUTPUTLIST (creationtime, creationuser, hasscheduler, hasvql, id, includei18n, includejars, includejdbcwrapperproperties, includeserverproperties, includestatistics, includeusersandprivileges, includevdpdependencies, includewebcontainerproperties, lastmodifiedtime, lastmodifieduser, name, replace, type, usedefaultdatabase
+        )
+        WRAPPER (json ds_create_rev_from_vql)
+    );
+

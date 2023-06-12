@@ -1,0 +1,9 @@
+﻿CREATE OR REPLACE VIEW p_contact FOLDER = '/cache' AS SELECT contact.id AS id, contact.name AS name, contact.phone AS phone, contact.email AS email, contact.lastmodifieddate AS lastmodifieddate FROM contact CONTEXT ('I18N' = 'india');
+
+ALTER VIEW p_contact
+ LAYOUT (contact = [20, 20, 277, 441]);
+
+ALTER VIEW p_contact
+ CACHE PARTIAL EXACT
+     BATCHSIZEINCACHE DEFAULT TIMETOLIVEINCACHE DEFAULT;
+

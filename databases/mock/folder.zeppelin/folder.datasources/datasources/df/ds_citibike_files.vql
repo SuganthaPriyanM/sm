@@ -1,0 +1,8 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE DATASOURCE DF ds_citibike_files
+    FOLDER = '/zeppelin/datasources'
+    ROUTE LOCAL 'LocalConnection' '${databases.mock.folder.zeppelin.folder.datasources.datasources.df.ds_citibike_files.ROUTE.LOCAL.PATH}'
+    COLUMNDELIMITER = ','
+    ENDOFLINEDELIMITER = '\n'
+    HEADER = TRUE;
+

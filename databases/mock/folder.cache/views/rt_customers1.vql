@@ -1,0 +1,55 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC rt_customers1
+    FOLDER = '/cache'
+    DATASOURCENAME=ds_oracle_new_19c_copy
+    SCHEMANAME='${databases.mock.folder.cache.views.jdbc.rt_customers1.SCHEMANAME}' ESCAPE
+    RELATIONNAME='CUSTOMERS1' 
+    DATA_LOAD_OPTIONS (
+        'batch_insert_size' = '7'
+    )
+    OUTPUTSCHEMA (
+        "Customer_Id" = 'CUSTOMER_ID' :'java.lang.Long' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='3', sourcetypename='NUMBER')  SORTABLE,
+        "Customer_First_Name" = 'CUSTOMER_FIRST_NAME' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='50', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        "Customer_Last_Name" = 'CUSTOMER_LAST_NAME' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='50', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        "Address_A" = 'ADDRESS_A' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='250', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        "District" = 'DISTRICT' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='50', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        "City" = 'CITY' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='30', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        "Country" = 'COUNTRY' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='50', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        "Postal_Code" = 'POSTAL_CODE' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='50', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        "Phone" = 'PHONE' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='30', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE
+    );
+
+CREATE OR REPLACE TABLE rt_customers1 I18N us_pst (
+        "Customer_Id":long (sourcetypeid = '-5', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        "Customer_First_Name":text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '50'),
+        "Customer_Last_Name":text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '50'),
+        "Address_A":text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '250'),
+        "District":text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '50'),
+        "City":text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '30'),
+        "Country":text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '50'),
+        "Postal_Code":text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '50'),
+        "Phone":text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '30')
+    )
+    FOLDER = '/cache'
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD rt_customers1(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD "Customer_Id" (any) OPT ANY
+             ADD "Customer_First_Name" (any) OPT ANY
+             ADD "Customer_Last_Name" (any) OPT ANY
+             ADD "Address_A" (any) OPT ANY
+             ADD "District" (any) OPT ANY
+             ADD "City" (any) OPT ANY
+             ADD "Country" (any) OPT ANY
+             ADD "Postal_Code" (any) OPT ANY
+             ADD "Phone" (any) OPT ANY
+        )
+        OUTPUTLIST ("Address_A", "City", "Country", "Customer_First_Name", "Customer_Id", "Customer_Last_Name", "District", "Phone", "Postal_Code"
+        )
+        WRAPPER (jdbc rt_customers1)
+    )
+    DATA_LOAD_QUERY = 'SELECT "Customer_Id", "Customer_First_Name", "Customer_Last_Name", "Address_A", "District", "City", "Country", "Postal_Code", "Phone"
+FROM mock."Customers"';
+

@@ -1,0 +1,5 @@
+﻿/databases/mock/folder.zeppelin/zeppelin.vql
+/databases/mock/folder.zeppelin/folder.datasources/datasources.vql
+/databases/mock/folder.cache/cache.vql
+/databases/mock/folder.zeppelin/folder.datasources/datasources/jdbc/ds_oracle_dqvm.vql
+/databases/mock/folder.cache/views/rt_customers12.vql

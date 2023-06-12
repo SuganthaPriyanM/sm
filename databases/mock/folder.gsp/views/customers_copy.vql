@@ -1,0 +1,55 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC customers_copy
+    FOLDER = '/gsp'
+    DATASOURCENAME=test.ds_db_copy
+    CATALOGNAME='${databases.mock.folder.gsp.views.jdbc.customers_copy.CATALOGNAME}' 
+    SCHEMANAME='${databases.mock.folder.gsp.views.jdbc.customers_copy.SCHEMANAME}' 
+    RELATIONNAME='customers' 
+    OUTPUTSCHEMA (
+        customer_id = 'customer_id' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int identity')  NOT NULL SORTABLE IS_AUTOINCREMENT,
+        first_name = 'first_name' :'java.lang.String' (OPT) (sourcetypesize='255', sourcetypeid='12', sourcetypename='varchar')  NOT NULL SORTABLE,
+        last_name = 'last_name' :'java.lang.String' (OPT) (sourcetypesize='255', sourcetypeid='12', sourcetypename='varchar')  NOT NULL SORTABLE,
+        phone = 'phone' :'java.lang.String' (OPT) (sourcetypesize='25', sourcetypeid='12', sourcetypename='varchar')  SORTABLE,
+        email = 'email' :'java.lang.String' (OPT) (sourcetypesize='255', sourcetypeid='12', sourcetypename='varchar')  NOT NULL SORTABLE,
+        street = 'street' :'java.lang.String' (OPT) (sourcetypesize='255', sourcetypeid='12', sourcetypename='varchar')  SORTABLE,
+        city = 'city' :'java.lang.String' (OPT) (sourcetypesize='50', sourcetypeid='12', sourcetypename='varchar')  SORTABLE,
+        state = 'state' :'java.lang.String' (OPT) (sourcetypesize='25', sourcetypeid='12', sourcetypename='varchar')  SORTABLE,
+        zip_code = 'zip_code' :'java.lang.String' (OPT) (sourcetypesize='5', sourcetypeid='12', sourcetypename='varchar')  SORTABLE
+    )
+    CONSTRAINT 'PK__customer__CD65CB85600E6D5F' PRIMARY KEY ( 'customer_id' )
+    INDEX 'PK__customer__CD65CB85600E6D5F' CLUSTER UNIQUE PRIMARY ( 'customer_id' );
+
+CREATE OR REPLACE TABLE customers_copy I18N india (
+        customer_id:int (notnull, autoincrement, sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10') TAGS (deny_exec_tag),
+        first_name:text (notnull, sourcetypeid = '12', sourcetypesize = '255'),
+        last_name:text (notnull, sourcetypeid = '12', sourcetypesize = '255'),
+        phone:text (sourcetypeid = '12', sourcetypesize = '25') TAGS (phone, sensitive_fields),
+        email:text (notnull, sourcetypeid = '12', sourcetypesize = '255') TAGS (email, sensitive_fields),
+        street:text (sourcetypeid = '12', sourcetypesize = '255'),
+        city:text (sourcetypeid = '12', sourcetypesize = '50') TAGS (location),
+        state:text (sourcetypeid = '12', sourcetypesize = '25') TAGS (location, state_tag),
+        zip_code:text (sourcetypeid = '12', sourcetypesize = '5')
+    )
+    FOLDER = '/gsp'
+    CONSTRAINT 'PK__customer__CD65CB85600E6D5F' PRIMARY KEY ( 'customer_id' )
+    TAGS (deny_exec_tag)
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD customers(
+        I18N india
+        CONSTRAINTS (
+             ADD first_name (any) OPT ANY
+             ADD last_name (any) OPT ANY
+             ADD phone (any) OPT ANY
+             ADD email (any) OPT ANY
+             ADD street (any) OPT ANY
+             ADD city (any) OPT ANY
+             ADD state (any) OPT ANY
+             ADD zip_code (any) OPT ANY
+             ADD customer_id (any) OPT ONE
+        )
+        OUTPUTLIST (city, customer_id, email, first_name, last_name, phone, state, street, zip_code
+        )
+        WRAPPER (jdbc customers_copy)
+    );
+

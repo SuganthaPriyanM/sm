@@ -1,0 +1,85 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JSON ds_json_oauth_no_refresh_token
+    FOLDER = '/cache'
+    DATASOURCENAME=ds_json_oauth_no_refresh_token
+    TUPLEROOT '/JSONFile'
+    ROUTE HTTP 'http.CommonsHttpClientConnection,120000' GET '${databases.mock.folder.cache.views.json.ds_json_oauth_no_refresh_token.ROUTE.HTTP.URL}'
+    OUTPUTSCHEMA (jsonfile = 'JSONFile' : REGISTER OF (
+        name = 'name' : 'java.lang.String',
+        elements = 'elements' : ARRAY OF (
+            elements = 'elements' : REGISTER OF (
+                customer_id = 'Customer_Id' : 'java.lang.Integer',
+                customer_first_name = 'Customer_First_Name' : 'java.lang.String',
+                customer_last_name = 'Customer_Last_Name' : 'java.lang.String',
+                address_a = 'Address_A' : 'java.lang.String',
+                district = 'District' : 'java.lang.String',
+                city = 'City' : 'java.lang.String',
+                country = 'Country' : 'java.lang.String',
+                postal_code = 'Postal_Code' : 'java.lang.String',
+                phone = 'Phone' : 'java.lang.String',
+                links = 'links' : ARRAY OF (
+                    links = 'links' : REGISTER OF (
+                        rel = 'rel' : 'java.lang.String',
+                        href = 'href' : 'java.lang.String'
+                    )
+                )
+            )
+        ),
+        links = 'links' : ARRAY OF (
+            links = 'links' : REGISTER OF (
+                rel = 'rel' : 'java.lang.String',
+                href = 'href' : 'java.lang.String'
+            )
+        )
+    )
+    );
+
+CREATE OR REPLACE TYPE ds_json_oauth_no_refresh_token_elements_elements_links_links AS REGISTER OF (rel:text, href:text);
+
+CREATE OR REPLACE TYPE ds_json_oauth_no_refresh_token_elements_elements_links AS ARRAY OF ds_json_oauth_no_refresh_token_elements_elements_links_links;
+
+CREATE OR REPLACE TYPE ds_json_oauth_no_refresh_token_elements_elements AS REGISTER OF (customer_id:int, customer_first_name:text, customer_last_name:text, address_a:text, district:text, city:text, country:text, postal_code:text, phone:text, links:ds_json_oauth_no_refresh_token_elements_elements_links);
+
+CREATE OR REPLACE TYPE ds_json_oauth_no_refresh_token_elements AS ARRAY OF ds_json_oauth_no_refresh_token_elements_elements;
+
+CREATE OR REPLACE TYPE ds_json_oauth_no_refresh_token_links_links AS REGISTER OF (rel:text, href:text);
+
+CREATE OR REPLACE TYPE ds_json_oauth_no_refresh_token_links AS ARRAY OF ds_json_oauth_no_refresh_token_links_links;
+
+CREATE OR REPLACE TABLE ds_json_oauth_no_refresh_token I18N us_pst (
+        name:text,
+        elements:ds_json_oauth_no_refresh_token_elements,
+        links:ds_json_oauth_no_refresh_token_links
+    )
+    FOLDER = '/cache'
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD ds_json_oauth_no_refresh_token(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD name NOS ZERO ()
+             ADD elements NOS ZERO ()
+             ADD elements NOS ZERO ()
+             ADD elements.customer_id NOS ZERO ()
+             ADD elements.customer_first_name NOS ZERO ()
+             ADD elements.customer_last_name NOS ZERO ()
+             ADD elements.address_a NOS ZERO ()
+             ADD elements.district NOS ZERO ()
+             ADD elements.city NOS ZERO ()
+             ADD elements.country NOS ZERO ()
+             ADD elements.postal_code NOS ZERO ()
+             ADD elements.phone NOS ZERO ()
+             ADD elements.links NOS ZERO ()
+             ADD elements.links NOS ZERO ()
+             ADD elements.links.rel NOS ZERO ()
+             ADD elements.links.href NOS ZERO ()
+             ADD links NOS ZERO ()
+             ADD links NOS ZERO ()
+             ADD links.rel NOS ZERO ()
+             ADD links.href NOS ZERO ()
+        )
+        OUTPUTLIST (elements, links, name
+        )
+        WRAPPER (json ds_json_oauth_no_refresh_token)
+    );
+

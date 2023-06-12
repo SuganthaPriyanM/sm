@@ -1,0 +1,9 @@
+﻿CREATE OR REPLACE VIEW p_bv_weather_file FOLDER = '/zeppelin/derivedviews'
+    PRIMARY KEY ( 'Year' , 'Month' , 'Day' ) AS SELECT bv_weather_file."Year" AS "Year", bv_weather_file."Month" AS "Month", bv_weather_file."Day" AS "Day", bv_weather_file."Max Temp (F)" AS "Max Temp (F)", bv_weather_file."Min Temp (F)" AS "Min Temp (F)", coalesce(cast(bv_weather_file."Rain (in.)" AS DECIMAL), 0.01) AS "Rain (in.)", coalesce(cast(bv_weather_file."Snow (in.)" AS DECIMAL), 0.01) AS "Snow (in.)", coalesce(cast(bv_weather_file."Snow Cover (in.)" AS DECIMAL), 0.01) AS "Snow Cover (in.)", to_localdate('M/d/yyyy', ((((bv_weather_file."Month"||'/')||bv_weather_file."Day")||'/')||bv_weather_file."Year")) AS date FROM bv_weather_file;
+
+ALTER VIEW p_bv_weather_file
+ LAYOUT (bv_weather_file = [20, 20, 200, 105]);
+
+ALTER VIEW p_bv_weather_file
+ DELEGATESTATSQUERY = true GET_TABLE_STATS = true ATSOURCE_THROUGH_VDP_ONLY;
+

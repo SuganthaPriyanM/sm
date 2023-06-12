@@ -1,0 +1,9 @@
+﻿CREATE OR REPLACE VIEW p_bv_citibike_files FOLDER = '/zeppelin/derivedviews'
+    PRIMARY KEY ( 'Date' ) AS SELECT to_localdate('M/d/yyyy', bv_citibike_files."Date") AS "Date", cast(bv_citibike_files."Trips over the past 24-hours (midnight to 11:59pm)" AS INTEGER) AS "Trips over the past 24-hours (midnight to 11:59pm)", cast(bv_citibike_files."Miles traveled today (midnight to 11:59 pm)" AS INTEGER) AS "Miles traveled today (midnight to 11:59 pm)", cast(bv_citibike_files."Total Annual Members (All Time)" AS INTEGER) AS "Total Annual Members (All Time)", cast(bv_citibike_files."24-Hour Passes Purchased (midnight to 11:59 pm)" AS INTEGER) AS "24-Hour Passes Purchased (midnight to 11:59 pm)", cast(bv_citibike_files."3-Day Passes Purchased (midnight to 11:59 pm)" AS INTEGER) AS "3-Day Passes Purchased (midnight to 11:59 pm)" FROM bv_citibike_files;
+
+ALTER VIEW p_bv_citibike_files
+ LAYOUT (bv_citibike_files = [20, 20, 200, 105]);
+
+ALTER VIEW p_bv_citibike_files
+ DELEGATESTATSQUERY = true GET_TABLE_STATS = true ATSOURCE_THROUGH_VDP_ONLY;
+

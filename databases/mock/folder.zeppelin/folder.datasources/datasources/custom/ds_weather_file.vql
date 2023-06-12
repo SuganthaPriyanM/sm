@@ -1,0 +1,27 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE DATASOURCE CUSTOM ds_weather_file
+    FOLDER = '/zeppelin/datasources'
+    CLASSNAME='com.denodo.vdb.contrib.wrapper.xls.ExcelWrapper';
+
+CREATE OR REPLACE WRAPPER CUSTOM ds_weather_file
+    FOLDER = '/zeppelin/datasources'
+    DATASOURCENAME=ds_weather_file
+    PARAMETERS (
+      'Type of file' = 'Excel 2007 or later (*.xlsx)',
+      'File location' = ROUTE LOCAL 'LocalConnection' '${databases.mock.folder.zeppelin.folder.datasources.views.custom.ds_weather_file.File location.ROUTE.LOCAL.PATH}',
+      'Extract data from all sheets' = false,
+      'Extract sheet name as a new column' = false,
+      'Has headers' = true,
+      'Stream tuples' = true
+    )
+    OUTPUTSCHEMA (
+        "Year" = 'Year' : 'java.lang.Integer' (OPT) (sourcetypeid='4')  SORTABLE,
+        "Month" = 'Month' : 'java.lang.Integer' (OPT) (sourcetypeid='4')  SORTABLE,
+        "Day" = 'Day' : 'java.lang.Integer' (OPT) (sourcetypeid='4')  SORTABLE,
+        "Max Temp (F)" = 'Max Temp (F)' : 'java.lang.Integer' (OPT) (sourcetypeid='4')  SORTABLE,
+        "Min Temp (F)" = 'Min Temp (F)' : 'java.lang.Integer' (OPT) (sourcetypeid='4')  SORTABLE,
+        "Rain (in.)" = 'Rain (in.)' : 'java.lang.String' (OPT) (sourcetypeid='12')  SORTABLE,
+        "Snow (in.)" = 'Snow (in.)' : 'java.lang.String' (OPT) (sourcetypeid='12')  SORTABLE,
+        "Snow Cover (in.)" = 'Snow Cover (in.)' : 'java.lang.String' (OPT) (sourcetypeid='12')  SORTABLE
+    );
+
